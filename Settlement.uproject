@@ -7,7 +7,20 @@
 		{
 			"Name": "Settlement",
 			"Type": "Runtime",
-			"LoadingPhase": "Default"
+			"LoadingPhase": "Default",
+			"AdditionalDependencies": [
+				"Engine"
+			]
 		}
+	],
+	"Plugins": [
+		{
+			"Name": "Voxel",
+			"Enabled": true
+		}
+	],
+	"TargetPlatforms": [
+		"AllDesktop",
+		"LinuxNoEditor"
 	]
 }
