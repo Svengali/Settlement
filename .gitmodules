@@ -1,3 +1,6 @@
 [submodule "Plugins/Voxel"]
 	path = Plugins/Voxel
 	url = https://github.com/Svengali/VoxelPlugin
+[submodule "Plugins/RuntimeMeshComponent"]
+	path = Plugins/RuntimeMeshComponent
+	url = https://github.com/Svengali/RuntimeMeshComponent

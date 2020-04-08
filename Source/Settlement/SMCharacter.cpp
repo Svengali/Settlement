@@ -7,6 +7,7 @@
 #include "GameFramework/CharacterMovementComponent.h"
 #include "GameFramework/Controller.h"
 #include "GameFramework/SpringArmComponent.h"
+#include <Runtime\Engine\Public\DrawDebugHelpers.h>
 
 //////////////////////////////////////////////////////////////////////////
 // ASMCharacter
@@ -14,7 +15,7 @@
 ASMCharacter::ASMCharacter()
 {
 	// Set size for collision capsule
-	GetCapsuleComponent()->InitCapsuleSize( 42.f, 96.0f );
+	//GetCapsuleComponent()->InitCapsuleSize( 42.f, 96.0f );
 
 	// set our turn rates for input
 	BaseTurnRate = 45.f;
@@ -31,6 +32,7 @@ ASMCharacter::ASMCharacter()
 	GetCharacterMovement()->JumpZVelocity = 600.f;
 	GetCharacterMovement()->AirControl = 0.2f;
 
+	//*
 	// Create a camera boom (pulls in towards the player if there is a collision)
 	CameraBoom = CreateDefaultSubobject<USpringArmComponent>( TEXT( "CameraBoom" ) );
 	CameraBoom->SetupAttachment( RootComponent );
@@ -44,36 +46,97 @@ ASMCharacter::ASMCharacter()
 
 	// Note: The skeletal mesh and anim blueprint references on the Mesh component (inherited from Character) 
 	// are set in the derived blueprint asset named MyCharacter (to avoid direct content references in C++)
+	//*/
 }
 
 //////////////////////////////////////////////////////////////////////////
 // Input
 
-void ASMCharacter::SetupPlayerInputComponent( class UInputComponent *PlayerInputComponent )
+void ASMCharacter::SetupPlayerInputComponent( class UInputComponent *PIC )
 {
 	// Set up gameplay key bindings
-	check( PlayerInputComponent );
-	PlayerInputComponent->BindAction( "Jump", IE_Pressed, this, &ACharacter::Jump );
-	PlayerInputComponent->BindAction( "Jump", IE_Released, this, &ACharacter::StopJumping );
+	check( PIC );
+	PIC->BindAction( "Jump", IE_Pressed, this, &ACharacter::Jump );
+	PIC->BindAction( "Jump", IE_Released, this, &ACharacter::StopJumping );
 
-	PlayerInputComponent->BindAxis( "MoveForward", this, &ASMCharacter::MoveForward );
-	PlayerInputComponent->BindAxis( "MoveRight", this, &ASMCharacter::MoveRight );
+	PIC->BindAction( "PlaceObject", IE_Pressed, this, &ASMCharacter::PlacingObject );
+	PIC->BindAction( "PlaceObject", IE_Released, this, &ASMCharacter::PlacedObject );
+
+
+
+	PIC->BindAxis( "MoveForward", this, &ASMCharacter::MoveForward );
+	PIC->BindAxis( "MoveRight", this, &ASMCharacter::MoveRight );
 
 	// We have 2 versions of the rotation bindings to handle different kinds of devices differently
 	// "turn" handles devices that provide an absolute delta, such as a mouse.
 	// "turnrate" is for devices that we choose to treat as a rate of change, such as an analog joystick
-	PlayerInputComponent->BindAxis( "Turn", this, &APawn::AddControllerYawInput );
-	PlayerInputComponent->BindAxis( "TurnRate", this, &ASMCharacter::TurnAtRate );
-	PlayerInputComponent->BindAxis( "LookUp", this, &APawn::AddControllerPitchInput );
-	PlayerInputComponent->BindAxis( "LookUpRate", this, &ASMCharacter::LookUpAtRate );
+	PIC->BindAxis( "Turn", this, &APawn::AddControllerYawInput );
+	PIC->BindAxis( "TurnRate", this, &ASMCharacter::TurnAtRate );
+	PIC->BindAxis( "LookUp", this, &APawn::AddControllerPitchInput );
+	PIC->BindAxis( "LookUpRate", this, &ASMCharacter::LookUpAtRate );
 
 	// handle touch devices
-	PlayerInputComponent->BindTouch( IE_Pressed, this, &ASMCharacter::TouchStarted );
-	PlayerInputComponent->BindTouch( IE_Released, this, &ASMCharacter::TouchStopped );
+	PIC->BindTouch( IE_Pressed, this, &ASMCharacter::TouchStarted );
+	PIC->BindTouch( IE_Released, this, &ASMCharacter::TouchStopped );
+
 
 	// VR headset functionality
-	PlayerInputComponent->BindAction( "ResetVR", IE_Pressed, this, &ASMCharacter::OnResetVR );
+	PIC->BindAction( "ResetVR", IE_Pressed, this, &ASMCharacter::OnResetVR );
 }
+
+
+void ASMCharacter::PlacingObject()
+{
+
+	auto *w = GetWorld();
+
+	auto start = FollowCamera->GetComponentLocation();
+
+	auto fwd = FollowCamera->GetForwardVector();
+
+
+
+	auto end   = start + fwd * 5000;
+
+	FTraceDelegate del;
+	//TraceDelegate.BindSP( WeakRef, &FManualWeakRef::TraceDone );
+
+
+	del.BindWeakLambda(this, [w, this, start, end]( const FTraceHandle &handle, FTraceDatum &data ) {
+
+		DrawDebugLine( w, start, end, FColor::Red, false, 10.0f );
+
+		for( auto hr : data.OutHits )
+		{
+			DrawDebugSphere( w, hr.Location, 25.0f, 8, FColor::Red, false, 10.0f );
+		}
+
+
+	});
+
+
+	auto query = FCollisionQueryParams( "Test", false, this );
+
+
+	w->AsyncSweepByChannel( EAsyncTraceType::Single, 
+		start, end, 
+		ECollisionChannel::ECC_WorldStatic, FCollisionShape::MakeSphere( 1.0f ), 
+		query, FCollisionResponseParams::DefaultResponseParam,
+		&del );
+
+
+}
+
+void ASMCharacter::PlacedObject()
+{
+}
+
+/*
+void ASMCharacter::OnPlacedSweep( const FTraceHandle &handle, FTraceDatum &data )
+{
+
+}
+*/
 
 
 void ASMCharacter::OnResetVR()

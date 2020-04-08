@@ -11,21 +11,21 @@ class SETTLEMENT_API ASMCharacter: public ACharacter
 	GENERATED_BODY()
 
 	/** Camera boom positioning the camera behind the character */
-		UPROPERTY( VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true") )
+		UPROPERTY( VisibleAnywhere, BlueprintReadWrite, Category = Camera, meta = (AllowPrivateAccess = "true") )
 		class USpringArmComponent *CameraBoom;
 
 		/** Follow camera */
-	UPROPERTY( VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true") )
+	UPROPERTY( VisibleAnywhere, BlueprintReadWrite, Category = Camera, meta = (AllowPrivateAccess = "true") )
 		class UCameraComponent *FollowCamera;
 public:
 	ASMCharacter();
 
 	/** Base turn rate, in deg/sec. Other scaling may affect final turn rate. */
-	UPROPERTY( VisibleAnywhere, BlueprintReadOnly, Category=Camera )
+	UPROPERTY( VisibleAnywhere, BlueprintReadWrite, Category=Camera )
 		float BaseTurnRate;
 
 		/** Base look up/down rate, in deg/sec. Other scaling may affect final rate. */
-	UPROPERTY( VisibleAnywhere, BlueprintReadOnly, Category=Camera )
+	UPROPERTY( VisibleAnywhere, BlueprintReadWrite, Category=Camera )
 		float BaseLookUpRate;
 
 protected:
@@ -38,6 +38,18 @@ protected:
 
 	/** Called for side to side input */
 	void MoveRight( float Value );
+
+
+	UFUNCTION( BlueprintCallable, Category=Build )
+	virtual void PlacingObject();
+
+	UFUNCTION( BlueprintCallable, Category=Build )
+	virtual void PlacedObject();
+
+
+	void OnPlacedSweep( const FTraceHandle &handle, FTraceDatum &data );
+
+
 
 	/**
 	 * Called via input to turn at a given rate.
