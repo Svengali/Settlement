@@ -1,6 +1,12 @@
-[submodule "Plugins/Voxel"]
-	path = Plugins/Voxel
-	url = https://github.com/Svengali/VoxelPlugin
 [submodule "Plugins/RuntimeMeshComponent"]
 	path = Plugins/RuntimeMeshComponent
 	url = https://github.com/Svengali/RuntimeMeshComponent
+[submodule "Plugins/ConfigAsset"]
+	path = Plugins/ConfigAsset
+	url = https://github.com/Svengali/ConfigAsset/
+[submodule "Plugins/UnrealFastNoise"]
+	path = Plugins/UnrealFastNoise
+	url = https://github.com/Svengali/UnrealFastNoise
+[submodule "Plugins/Bricks"]
+	path = Plugins/Bricks
+	url = https://github.com/Svengali/Bricks
