@@ -1,4 +1,4 @@
-# Visual Studio 2015 user specific files
+# Visual Studio
 .vs/
 
 # Compiled Object files
@@ -41,10 +41,6 @@
 *.VC.db
 *.VC.opendb
 
-# Precompiled Assets
-SourceArt/**/*.png
-SourceArt/**/*.tga
-
 # Binary Files
 Binaries/*
 Plugins/*/Binaries/*
@@ -72,3 +68,23 @@ Plugins/*/Intermediate/*
 
 # Cache files for the editor to use
 DerivedDataCache/*
+
+# Localisation intermediate / export files
+Content/Localization/**/*.csv
+Content/Localization/**/*.po
+Content/Localization/**/*.archive
+
+# Temp files
+*.blend1
+
+# Exported files in Content
+Content/**/*.bmp
+Content/**/*.png
+Content/**/*.jpg
+Content/**/*.tif
+Content/**/*.tiff
+Content/**/*.tga
+Content/**/*.fbx
+Content/**/*.exr
+Content/**/*.mp3
+Content/**/*.wav
