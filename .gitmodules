@@ -1,0 +1,3 @@
+[submodule "Plugins"]
+	path = Plugins
+	url = git@github.com:Svengali/UEPlugins.git
