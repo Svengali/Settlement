@@ -7,7 +7,15 @@ public class ActionRPG : ModuleRules
 	public ActionRPG(ReadOnlyTargetRules Target)
 		: base(Target)
 	{
-		PrivatePCHHeaderFile = "Public/ActionRPG.h";
+		PrivatePCHHeaderFile = "ActionRPG.h";
+
+		PublicIncludePaths.Add("ActionRPG");
+		PrivateIncludePaths.AddRange(
+			new string[] {
+				"ActionRPG",
+            }
+		);
+
 
 		PublicDependencyModuleNames.AddRange(
 			new string[] {
@@ -27,7 +35,11 @@ public class ActionRPG : ModuleRules
 				"GameplayAbilities",
 				"GameplayTags",
 				"GameplayTasks",
-				"AIModule"
+				"AIModule",
+				"Items",
+				"SimplexNoise",
+				"Voxel",
+				"SPUD",
 			}
 		);
 
