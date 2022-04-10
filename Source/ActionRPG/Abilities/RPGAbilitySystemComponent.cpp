@@ -1,7 +1,7 @@
 // Copyright Epic Games, Inc. All Rights Reserved.
 
 #include "Abilities/RPGAbilitySystemComponent.h"
-#include "RPGCharacterBase.h"
+#include "Player/RPGCharacterBase.h"
 #include "Abilities/RPGGameplayAbility.h"
 #include "AbilitySystemGlobals.h"
 

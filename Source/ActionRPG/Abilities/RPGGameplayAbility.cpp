@@ -3,7 +3,7 @@
 #include "Abilities/RPGGameplayAbility.h"
 #include "Abilities/RPGAbilitySystemComponent.h"
 #include "Abilities/RPGTargetType.h"
-#include "RPGCharacterBase.h"
+#include "Player/RPGCharacterBase.h"
 
 URPGGameplayAbility::URPGGameplayAbility() {}
 

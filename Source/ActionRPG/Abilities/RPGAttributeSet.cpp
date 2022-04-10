@@ -2,7 +2,7 @@
 
 #include "Abilities/RPGAttributeSet.h"
 #include "Abilities/RPGAbilitySystemComponent.h"
-#include "RPGCharacterBase.h"
+#include "Player/RPGCharacterBase.h"
 #include "GameplayEffect.h"
 #include "GameplayEffectExtension.h"
 

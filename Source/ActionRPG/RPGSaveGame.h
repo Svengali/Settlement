@@ -3,6 +3,7 @@
 #pragma once
 
 #include "ActionRPG.h"
+#include "RPGTypes.h"
 #include "Items/RPGItem.h"
 #include "GameFramework/SaveGame.h"
 #include "RPGSaveGame.generated.h"

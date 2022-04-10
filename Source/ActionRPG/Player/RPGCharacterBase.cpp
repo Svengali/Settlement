@@ -1,6 +1,6 @@
 // Copyright Epic Games, Inc. All Rights Reserved.
 
-#include "RPGCharacterBase.h"
+#include "Player/RPGCharacterBase.h"
 #include "Items/RPGItem.h"
 #include "AbilitySystemGlobals.h"
 #include "Abilities/RPGGameplayAbility.h"

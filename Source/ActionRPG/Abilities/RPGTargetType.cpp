@@ -2,7 +2,7 @@
 
 #include "Abilities/RPGTargetType.h"
 #include "Abilities/RPGGameplayAbility.h"
-#include "RPGCharacterBase.h"
+#include "Player/RPGCharacterBase.h"
 
 void URPGTargetType::GetTargets_Implementation(ARPGCharacterBase* TargetingCharacter, AActor* TargetingActor, FGameplayEventData EventData, TArray<FHitResult>& OutHitResults, TArray<AActor*>& OutActors) const
 {

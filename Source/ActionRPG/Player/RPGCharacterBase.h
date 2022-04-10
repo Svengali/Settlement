@@ -3,6 +3,7 @@
 #pragma once
 
 #include "ActionRPG.h"
+#include "RPGTypes.h"
 #include "GameFramework/Character.h"
 #include "UObject/ScriptInterface.h"
 #include "RPGInventoryInterface.h"

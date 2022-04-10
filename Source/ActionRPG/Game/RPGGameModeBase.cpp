@@ -2,7 +2,7 @@
 
 #include "RPGGameModeBase.h"
 #include "RPGGameStateBase.h"
-#include "RPGPlayerControllerBase.h"
+#include "Player/RPGPlayerControllerBase.h"
 
 ARPGGameModeBase::ARPGGameModeBase()
 {

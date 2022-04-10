@@ -3,6 +3,7 @@
 #pragma once
 
 #include "ActionRPG.h"
+#include "RPGTypes.h"
 #include "RPGInventoryInterface.generated.h"
 
 /**
